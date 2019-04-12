@@ -1,0 +1,12 @@
+# -*- coding: utf-8 -*-
+
+from .balance import BALANCE_MAPPING
+from .charges import CHARGES_MAPPING
+from .customers import CUSTOMERS_MAPPING
+from .disputes import DISPUTES_MAPPING
+
+RESOURCE_MAPPING = {}
+RESOURCE_MAPPING.update(BALANCE_MAPPING)
+RESOURCE_MAPPING.update(CHARGES_MAPPING)
+RESOURCE_MAPPING.update(CUSTOMERS_MAPPING)
+RESOURCE_MAPPING.update(DISPUTES_MAPPING)
