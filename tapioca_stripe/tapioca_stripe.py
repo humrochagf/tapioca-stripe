@@ -10,7 +10,7 @@ from .resource_mapping import RESOURCE_MAPPING
 
 class StripeClientAdapter(JSONAdapterMixin, TapiocaAdapter):
 
-    api_root = 'https://api.stripe.com/v1/'
+    api_root = 'https://api.stripe.com/v1'
     resource_mapping = RESOURCE_MAPPING
 
     def get_request_kwargs(self, api_params, *args, **kwargs):
@@ -21,6 +21,9 @@ class StripeClientAdapter(JSONAdapterMixin, TapiocaAdapter):
         params['auth'] = HTTPBasicAuth(api_params.get('api_key'), '')
 
         return params
+
+    def get_api_root(self, api_params):
+        return self.api_root
 
     def get_iterator_list(self, response_data):
         return response_data
