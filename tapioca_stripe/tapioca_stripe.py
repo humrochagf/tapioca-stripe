@@ -47,11 +47,19 @@ class StripeClientAdapter(FormRequestJSONResponseAdapterMixin, TapiocaAdapter):
         return self.api_root
 
     def get_iterator_list(self, response_data):
-        return response_data
+        return response_data['data']
 
     def get_iterator_next_request_kwargs(self, iterator_request_kwargs,
                                          response_data, response):
-        pass
+        if response_data.get('has_more'):
+            last_item_id = self.get_iterator_list(response_data)[-1]['id']
+
+            if 'params' not in iterator_request_kwargs:
+                iterator_request_kwargs['params'] = {}
+
+            iterator_request_kwargs['params']['starting_after'] = last_item_id
+
+            return iterator_request_kwargs
 
 
 Stripe = generate_wrapper_from_adapter(StripeClientAdapter)
